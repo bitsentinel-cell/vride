@@ -4,6 +4,8 @@ import User from "../models/User";
 import asyncHandler from "express-async-handler";
 import { AuthenticationError } from "./errorMiddleware";
 
+
+
 const authenticate = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         try {

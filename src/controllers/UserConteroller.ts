@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import User , {IUser} from "../models/User";
+import User from "../models/User";
 import { generateToken, clearToken } from "../utils/auth";
 import { BadRequestError } from "../middleware/errorMiddleware";
 import asyncHandler from "express-async-handler";
@@ -31,8 +31,8 @@ import asyncHandler from "express-async-handler";
      }
 };
 
-const getUserById = async (req: Request, res: Response)  => {
-    const userId : string | undefined = req.user?._id;
+const getUserById = asyncHandler(async (req: Request, res: Response) => {
+    const userId = req.user?._id;
     const user  = await User.findById(userId, "name email");
 
     if (!user) {
@@ -40,7 +40,7 @@ const getUserById = async (req: Request, res: Response)  => {
     }
 
     res.status(200).json(user);
-};
+});
 
 
 

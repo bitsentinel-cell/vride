@@ -9,7 +9,8 @@ import cookieParser from "cookie-parser";
 import userRoutes from './routes/UserRoutes'
 import helmet from "helmet";
 import { errorHandler } from "./middleware/errorMiddleware";
-import { authenticate } from './middleware/authMiddleware';
+import CategoryRoutes from "./routes/CategoryRoutes";
+// import { authenticate } from './middleware/authMiddleware';
 
 
 app.use(helmet());
@@ -24,19 +25,6 @@ app.use(helmet());
 //     })
 // );
 
-interface UserBasicInfo {
-    _id: string;
-    name: string;
-    email: string;
-}
-
-declare global {
-    namespace Express {
-        interface Request {
-            user?: UserBasicInfo | null;
-        }
-    }
-}
 
 
 app.use(cookieParser());
@@ -44,6 +32,7 @@ app.use(bodyParser.json());
 
 app.use(express.json());
 app.use('/api/v1', userRoutes);
+app.use('/api/v1', CategoryRoutes);
 
 
 
